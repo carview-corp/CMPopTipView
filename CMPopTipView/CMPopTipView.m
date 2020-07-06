@@ -59,21 +59,11 @@
 
 - (CGRect)contentFrame {
     CGRect bubbleFrame = [self bubbleFrame];
-
-    CGRect contentFrame;
     
-    if (_rightImageName && _rightImageName.length > 0){
-        contentFrame = CGRectMake(bubbleFrame.origin.x + _cornerRadius + _bubblePaddingX,
-        bubbleFrame.origin.y + _cornerRadius + _bubblePaddingY,
-        bubbleFrame.size.width - (_bubblePaddingX*2) - (_cornerRadius*2) - _rightImageWidth,
-        bubbleFrame.size.height - (_bubblePaddingY*2) - (_cornerRadius*2));
-    }else{
-        contentFrame = CGRectMake(bubbleFrame.origin.x + _cornerRadius + _bubblePaddingX,
-        bubbleFrame.origin.y + _cornerRadius + _bubblePaddingY,
-        bubbleFrame.size.width - (_bubblePaddingX*2) - (_cornerRadius*2),
-        bubbleFrame.size.height - (_bubblePaddingY*2) - (_cornerRadius*2));
-    }
-    
+    CGRect contentFrame = CGRectMake(bubbleFrame.origin.x + _cornerRadius + _bubblePaddingX,
+                                     bubbleFrame.origin.y + _cornerRadius + _bubblePaddingY,
+                                     bubbleFrame.size.width - (_bubblePaddingX*2) - (_cornerRadius*2),
+                                     bubbleFrame.size.height - (_bubblePaddingY*2) - (_cornerRadius*2));
     return contentFrame;
 }
 
@@ -485,11 +475,7 @@
         textSize.height += titleSize.height;
     }
 
-    if (_rightImageName && _rightImageName.length > 0){
-        _bubbleSize = CGSizeMake(textSize.width + (_bubblePaddingX*2) + (_cornerRadius*2) + _rightImageWidth, textSize.height + (_bubblePaddingY*2) + (_cornerRadius*2));
-    }else{
-        _bubbleSize = CGSizeMake(textSize.width + (_bubblePaddingX*2) + (_cornerRadius*2), textSize.height + (_bubblePaddingY*2) + (_cornerRadius*2));
-    }
+	_bubbleSize = CGSizeMake(textSize.width + (_bubblePaddingX*2) + (_cornerRadius*2), textSize.height + (_bubblePaddingY*2) + (_cornerRadius*2));
 
 	UIView *superview = containerView.superview;
 	if ([superview isKindOfClass:[UIWindow class]])
@@ -616,13 +602,6 @@
 		[self setNeedsDisplay];
 		self.frame = finalFrame;
 	}
-    
-    if (_rightImageName && _rightImageName.length > 0){
-        UIImageView *rightImageView = [[UIImageView alloc] initWithImage: [UIImage imageNamed:_rightImageName]];
-        rightImageView.contentMode = UIViewContentModeScaleAspectFit;
-        rightImageView.frame = CGRectMake(finalFrame.size.width - _sidePadding - _bubblePaddingX -_rightImageWidth, finalFrame.size.height/2 -(_rightImageWidth/2), _rightImageWidth, _rightImageWidth);
-        [self addSubview:rightImageView];
-    }
 }
 
 - (void)presentPointingAtBarButtonItem:(UIBarButtonItem *)barButtonItem animated:(BOOL)animated {
